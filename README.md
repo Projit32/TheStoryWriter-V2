@@ -1,7 +1,7 @@
 # TheStoryWriter-V2
 Version 2 of the OG [The Story Writer](https://github.com/Projit32/TheStoryWriter) app but revamped!
 
-`Code : 100% Kotlin' <img src=images/kt.png height = 13/>
+`Code : 100% Kotlin` <img src=images/kt.png height = 13/>
 
 <img src=images/logo_square.png/>
 
