@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/signatureLayout"
+    android:background="@drawable/background5">
+
+    <TextView
+        android:id="@+id/signLabel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:text="Sign Your Story"
+        android:layout_marginTop="0dp" />
+    <EditText
+        android:maxLength="30"
+        android:id="@+id/signatureName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Choice of Username or First Name"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textColorHint="#8C8C8C"
+        android:layout_below="@+id/signLabel">
+        <requestFocus/>
+    </EditText>
+
+</RelativeLayout>

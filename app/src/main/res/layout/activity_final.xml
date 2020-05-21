@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background3"
+    tools:context=".FinalActivity">
+
+    <ImageView
+        android:id="@+id/finalImage"
+        android:layout_width="match_parent"
+        android:layout_height="250pt"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:layout_marginTop="0dp" />
+
+    <LinearLayout
+        android:id="@+id/bottomToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/finalImage"
+        android:layout_marginHorizontal="10dp">
+
+        <ImageButton
+            android:id="@+id/shareButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:src="@drawable/share" />
+
+        <ImageButton
+            android:id="@+id/historyButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:src="@drawable/previous" />
+
+        <ImageButton
+            android:id="@+id/selectTemplateButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:src="@drawable/template" />
+
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:src="@drawable/editing" />
+    </LinearLayout>
+
+</RelativeLayout>

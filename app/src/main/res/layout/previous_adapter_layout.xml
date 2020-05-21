@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:padding="10dp"
+    android:id="@+id/previousAdapterLayout"
+    android:background="#000000">
+
+    <TextView
+        android:id="@+id/modelDate"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:text="Date: "
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/modelTemplate"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/modelDate"
+        android:text="Template: "
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/modelSignature"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/modelTemplate"
+        android:text=""
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/modelContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modelSignature"
+        android:text="Content: "
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+
+</RelativeLayout>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditorActivity">
+
+    <LinearLayout
+        android:id="@+id/toolkitHolder"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/verticalAdjustment"
+            android:layout_width="0dp"
+            android:background="#00FFFFFF"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/vertical_adjust" />
+
+        <ImageButton
+            android:id="@+id/horizontalAdjustment"
+            android:layout_width="0dp"
+            android:background="#00FFFFFF"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/horizontal_adjust" />
+
+        <ImageButton
+            android:id="@+id/fontSelect"
+            android:layout_width="0dp"
+            android:background="#00FFFFFF"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/font" />
+
+        <ImageButton
+            android:id="@+id/save"
+            android:layout_width="0dp"
+            android:background="#00FFFFFF"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/save" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomToolkitHolder"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/signature"
+            android:layout_width="0dp"
+            android:background="#00FFFFFF"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/author_signature" />
+
+        <ImageButton
+            android:id="@+id/textSize"
+            android:layout_width="0dp"
+            android:background="#00FFFFFF"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/text_size" />
+    </LinearLayout>
+    <SeekBar
+        android:id="@+id/verticalAdjustBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        android:min="0"
+        android:background="#99000000"
+        android:layout_below="@+id/toolkitHolder"/>
+    <SeekBar
+        android:id="@+id/horizontalAdjustBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#99000000"
+        android:min="0"
+        android:visibility="gone"
+        android:layout_below="@+id/toolkitHolder"/>
+    <SeekBar
+        android:id="@+id/textSizeAdjust"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        android:min="20"
+        android:max="100"
+        android:background="#99000000"
+        android:layout_above="@+id/bottomToolkitHolder"/>
+
+    <ImageView
+        android:id="@+id/editedImage"
+        android:layout_marginHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200pt"
+        android:layout_below="@+id/toolkitHolder"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/wait"/>
+
+    <io.alterac.blurkit.BlurLayout
+        android:id="@+id/blurbackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:visibility="gone"
+        app:blk_fps="60" />
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="#00FFFFFF"
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/editContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="30dp"
+            android:hint="Cook Your Story"
+            android:textColor="#ffffff"
+            android:maxHeight="300dp"
+            android:textSize="18sp"
+            android:textColorHint="#88ffffff"
+            android:layout_marginTop="200dp"
+            android:singleLine="false"
+            android:inputType="textCapSentences|textMultiLine"
+            android:textStyle="italic">
+            <requestFocus/>
+        </EditText>
+
+        <Button
+            android:layout_centerHorizontal="true"
+            android:id="@+id/contentSubmit"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editContent"
+            android:textStyle="italic"
+            android:textColor="#000000"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="150dp"
+            android:text="Use This Text"
+            android:textAllCaps="false" />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fontReCyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:visibility="gone"/>
+</RelativeLayout>
