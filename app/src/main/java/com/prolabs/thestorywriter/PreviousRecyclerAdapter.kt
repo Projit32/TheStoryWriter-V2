@@ -12,7 +12,8 @@ import io.realm.RealmResults
 
 class PreviousRecyclerAdapter(var models:RealmResults<StoryModel>,var context:PreviousActivity):RecyclerView.Adapter<PreviousRecyclerAdapter.PreviousViewHolder>() {
 
-    private val backgrounds= arrayOf(R.drawable.background,R.drawable.background2,R.drawable.background3,R.drawable.background4,R.drawable.background5)
+    private val backgrounds= arrayOf(R.drawable.background,R.drawable.background2,R.drawable.background3,R.drawable.background4,
+            R.drawable.background5,R.drawable.background6,R.drawable.background7)
 
     class PreviousViewHolder(var v:View):RecyclerView.ViewHolder(v){
         var modelDate=v.findViewById<TextView>(R.id.modelDate)

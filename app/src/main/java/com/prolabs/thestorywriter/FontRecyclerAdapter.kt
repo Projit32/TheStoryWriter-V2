@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class FontRecyclerAdapter(var fontList:ArrayList<String>,var context:EditorActivity): RecyclerView.Adapter<FontRecyclerAdapter.FontViewHolder>() {
 
-    private val backgrounds= arrayOf(R.drawable.background,R.drawable.background2,R.drawable.background3,R.drawable.background4,R.drawable.background5)
+    private val backgrounds= arrayOf(R.drawable.background,R.drawable.background2,R.drawable.background3,R.drawable.background4,
+            R.drawable.background5,R.drawable.background6,R.drawable.background7)
 
     class FontViewHolder(var v: View):RecyclerView.ViewHolder(v){
         var textView:TextView=v.findViewById(R.id.fontAdapterLayout)
