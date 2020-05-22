@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
 
         proceed.setOnClickListener{v->
+            Toast.makeText(this,"Loading Templates, Please Wait...",Toast.LENGTH_LONG).show()
             val intent=Intent(this,TemplateSelector::class.java)
             startActivity(intent)
             finish()

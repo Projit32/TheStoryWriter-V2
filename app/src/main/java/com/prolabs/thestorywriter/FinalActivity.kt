@@ -64,6 +64,7 @@ class FinalActivity : AppCompatActivity() {
             finish()
         }
         selectTemplateButton.setOnClickListener(){v ->
+            Toast.makeText(this,"Loading Templates, Please Wait...",Toast.LENGTH_SHORT).show()
             startActivity(Intent(this,TemplateSelector::class.java))
             finish()
         }

@@ -11,10 +11,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class TemplateRecyclerAdapter(var templateList:ArrayList<Template>?,var context:TemplateSelector):RecyclerView.Adapter<TemplateRecyclerAdapter.TemplateViewHolder>()
+class TemplateRecyclerAdapter(var templateList:ArrayList<Template>?,var context:TemplateSelector,val folderName:String):RecyclerView.Adapter<TemplateRecyclerAdapter.TemplateViewHolder>()
 {
     var handler:Handler= Handler(Looper.getMainLooper())
-    var BaseURL="https://proapplication.000webhostapp.com/TSW/templates/"
+    var BaseURL="https://proapplication.000webhostapp.com/TSW/templates/$folderName/"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TemplateViewHolder {
         var layoutInflater:LayoutInflater=LayoutInflater.from(parent.context)
         var view=layoutInflater.inflate(R.layout.template_adapter_layout,parent,false) as View
@@ -33,6 +33,7 @@ class TemplateRecyclerAdapter(var templateList:ArrayList<Template>?,var context:
                 Picasso.get()
                         .load(imageURL)
                         .placeholder(R.drawable.ic_crop_original_black_24dp)
+                        .error(R.drawable.errorimage)
                         .into(holder.templateImageView)
             }
         }

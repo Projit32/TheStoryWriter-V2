@@ -11,14 +11,15 @@ class RetrofitClient {
 
     lateinit var retrofit: Retrofit
 
-    public fun build(){
+    fun build():RetrofitClient{
         retrofit=Retrofit.Builder()
             .baseUrl("https://proapplication.000webhostapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+        return this
     }
 
-    public fun fetchTemplates():Call<ArrayList<Template>>{
-        return retrofit.create(RequestInterface::class.java).getTemplate()
+    fun fetchTemplates(folderName:String):Call<ArrayList<Template>>{
+        return retrofit.create(RequestInterface::class.java).getTemplate(folderName)
     }
 }
