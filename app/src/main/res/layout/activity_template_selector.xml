@@ -12,11 +12,12 @@
     <TextView
         android:id="@+id/SelectTemplateText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:gravity="center"
         android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
         android:text="Select Any Template"
         android:textAlignment="center"
+        android:background="#000000"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="italic" />
