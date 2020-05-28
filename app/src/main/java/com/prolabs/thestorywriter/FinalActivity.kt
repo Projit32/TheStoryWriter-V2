@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -13,8 +15,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_template_selector.*
-import java.io.ByteArrayOutputStream
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.InputStream
+import java.net.URL
+import java.net.URLConnection
 
 
 class FinalActivity : AppCompatActivity() {
@@ -24,6 +29,7 @@ class FinalActivity : AppCompatActivity() {
     lateinit var historyButton:ImageButton
     lateinit var editButton:ImageButton
     lateinit var selectTemplateButton:ImageButton
+    lateinit var imageUri:Uri
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +45,24 @@ class FinalActivity : AppCompatActivity() {
 
         imageName=intent.getStringExtra("image_name")!!
         try {
-            Picasso.get()
-                    .load(getImage())
-                    .placeholder(R.drawable.wait)
-                    .into(finalImage)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                imageUri=getImage()
+                Picasso.get()
+                        .load(imageUri)
+                        .placeholder(R.drawable.wait)
+                        .into(finalImage)
+            }
+            else
+            {
+                finalImage.setImageDrawable(getDrawable(R.drawable.wait))
+                val file=File(Environment.getExternalStorageDirectory().absolutePath+ File.separator+Environment.DIRECTORY_PICTURES+"/TSW/"+imageName)
+                if (file.exists())
+                {
+                    imageUri= Uri.fromFile(file)
+                    //Toast.makeText(this,imageUri.toString(),Toast.LENGTH_LONG).show()
+                    finalImage.setImageBitmap(BitmapFactory.decodeFile(file.absolutePath))
+                }
+            }
             initButtonFunctions()
         }
         catch (e:Exception)
@@ -54,7 +74,7 @@ class FinalActivity : AppCompatActivity() {
 
     fun initButtonFunctions(){
         shareButton.setOnClickListener(){v->
-            share(getImage())
+            share(imageUri)
         }
         historyButton.setOnClickListener(){v->
             startActivity(Intent(this,PreviousActivity::class.java))
@@ -81,13 +101,15 @@ class FinalActivity : AppCompatActivity() {
         val projections= arrayOf(MediaStore.Images.Media._ID,MediaStore.Images.ImageColumns.DISPLAY_NAME)
         val condition = MediaStore.Images.ImageColumns.DISPLAY_NAME+" = ?"
         val args:Array<String> = arrayOf(imageName)
-        cursor=contentResolver.query(uri,projections,condition,args,null)
+        cursor=contentResolver.query(uri,projections,condition, args,null)
         while (cursor!!.moveToNext())
         {
             val columnIndex=cursor.getLong(cursor.getColumnIndexOrThrow(projections[0]))
+            //Toast.makeText(this,"$uri/$columnIndex",Toast.LENGTH_LONG).show()
             listOfImages.add(Uri.parse("$uri/$columnIndex"))
         }
         cursor.close()
+        //Toast.makeText(this,listOfImages[0].toString(),Toast.LENGTH_LONG).show()
         return listOfImages[0]
     }
 
@@ -98,4 +120,5 @@ class FinalActivity : AppCompatActivity() {
         share.putExtra(Intent.EXTRA_STREAM, imageURI)
         startActivity(Intent.createChooser(share, "Share Image"))
     }
+
 }

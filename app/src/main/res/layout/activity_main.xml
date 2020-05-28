@@ -36,12 +36,14 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="50dp"
         android:layout_marginBottom="100dp"
+        android:textColor="#ffffff"
         android:background="@drawable/button_background"
         android:text=" Create New" />
 
     <Button
         android:id="@+id/history"
         android:layout_width="110dp"
+        android:textColor="#ffffff"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"

@@ -112,6 +112,8 @@ class EditorActivity : AppCompatActivity() {
         fontRecyclerView.adapter=FontRecyclerAdapter(fonts,this)
         getImage()
 
+        requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+
     }
 
     fun getImage(){
@@ -349,8 +351,10 @@ class EditorActivity : AppCompatActivity() {
             else{
                 filePath=Environment.getExternalStorageDirectory().absolutePath+File.separator+Environment.DIRECTORY_PICTURES+"/TSW/"
                 val tempFile=File(filePath)
-                if(!tempFile.exists())
+                if(!tempFile.exists()){
                     tempFile.mkdirs()
+                    //Toast.makeText(this@EditorActivity,"Made File",Toast.LENGTH_SHORT).show()
+                }
                 outputStream=FileOutputStream(File(tempFile, "$fileName.png"))
             }
 
@@ -432,7 +436,7 @@ class EditorActivity : AppCompatActivity() {
     fun saveToRealm(){
         realm.beginTransaction()
         var tempModel=realm.createObject<StoryModel>()
-        tempModel.date=Calendar.getInstance().toString()
+        tempModel.date=Calendar.getInstance().time.toString()
         tempModel.template=this.url
         tempModel.global_y=this.global_y
         tempModel.global_x=this.global_x
