@@ -432,7 +432,7 @@ class EditorActivity : AppCompatActivity() {
     fun saveToRealm(){
         realm.beginTransaction()
         var tempModel=realm.createObject<StoryModel>()
-        tempModel.date=LocalDateTime.now().toString()
+        tempModel.date=Calendar.getInstance().toString()
         tempModel.template=this.url
         tempModel.global_y=this.global_y
         tempModel.global_x=this.global_x

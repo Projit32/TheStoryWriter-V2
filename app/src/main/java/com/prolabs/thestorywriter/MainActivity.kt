@@ -38,9 +38,14 @@ class MainActivity : AppCompatActivity() {
         Realm.init(this)
 
         val texts= arrayOf<String>(
-            "All you have to do is follow the damn thought.",
-            "Spread memes, not legs!",
-            "Thou art thy greatest inspiration"
+                "All you have to do is follow the damn thought.",
+                "There's a reason we call it the 'WordsPorn'.",
+                "Thou art thy greatest inspiration.",
+                "The heart desires, the finger respires.",
+                "Type your hearts out...",
+                "Who the DUCK says that a meme has to be pictures only?",
+                "If you can read the world, then let the world read you too.",
+                "Just don't use this app a tinder for heartbroken."
         )
         fadingTextView.setTexts(texts)
         fadingTextView.setTimeout(5,TimeUnit.SECONDS)
