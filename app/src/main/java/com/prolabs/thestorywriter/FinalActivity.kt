@@ -14,6 +14,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.squareup.picasso.Picasso
 import java.io.BufferedInputStream
 import java.io.File
@@ -58,9 +59,11 @@ class FinalActivity : AppCompatActivity() {
                 val file=File(Environment.getExternalStorageDirectory().absolutePath+ File.separator+Environment.DIRECTORY_PICTURES+"/TSW/"+imageName)
                 if (file.exists())
                 {
-                    imageUri= Uri.fromFile(file)
-                    //Toast.makeText(this,imageUri.toString(),Toast.LENGTH_LONG).show()
                     finalImage.setImageBitmap(BitmapFactory.decodeFile(file.absolutePath))
+                    imageUri= FileProvider.getUriForFile(
+                            this,
+                            applicationContext
+                                    .packageName + ".provider", file)
                 }
             }
             initButtonFunctions()
@@ -76,17 +79,33 @@ class FinalActivity : AppCompatActivity() {
         shareButton.setOnClickListener(){v->
             share(imageUri)
         }
+        shareButton.setOnLongClickListener(){v ->
+            Toast.makeText(this,"Share Your Image",Toast.LENGTH_SHORT).show()
+            true
+        }
         historyButton.setOnClickListener(){v->
             startActivity(Intent(this,PreviousActivity::class.java))
             finish()
         }
+        historyButton.setOnLongClickListener(){v ->
+            Toast.makeText(this,"Go To History",Toast.LENGTH_SHORT).show()
+            true
+        }
         editButton.setOnClickListener(){v ->
             finish()
+        }
+        editButton.setOnLongClickListener(){v->
+            Toast.makeText(this,"Back To Editing",Toast.LENGTH_SHORT).show()
+            true
         }
         selectTemplateButton.setOnClickListener(){v ->
             Toast.makeText(this,"Loading Templates, Please Wait...",Toast.LENGTH_SHORT).show()
             startActivity(Intent(this,TemplateSelector::class.java))
             finish()
+        }
+        selectTemplateButton.setOnLongClickListener(){v ->
+            Toast.makeText(this,"Select template",Toast.LENGTH_SHORT).show()
+            true
         }
 
     }

@@ -208,6 +208,7 @@ class EditorActivity : AppCompatActivity() {
     }
 
     fun FunctionsInit(){
+        Toast.makeText(this,"Tap on the image to add text. Long press on the icons to know their use.",Toast.LENGTH_LONG).show()
         editedImage.setOnClickListener(){v ->
             blurBackground.visibility=View.VISIBLE
             contentLayout.visibility=View.VISIBLE
@@ -242,6 +243,10 @@ class EditorActivity : AppCompatActivity() {
                 verticalSeekBar.visibility=View.GONE
             }
         }
+        verticalAdjustment.setOnLongClickListener(){v ->
+            Toast.makeText(this,"Vertically move your text by adjusting the slider that will appear below when this button is clicked.",Toast.LENGTH_LONG).show()
+            true
+        }
 
         horizontalAdjustment.setOnClickListener{v ->
             verticalSeekBar.visibility=View.GONE
@@ -251,6 +256,10 @@ class EditorActivity : AppCompatActivity() {
             else{
                 horizontalSeekBar.visibility=View.GONE
             }
+        }
+        horizontalAdjustment.setOnLongClickListener(){v ->
+            Toast.makeText(this,"Horizontally move your text by adjusting the slider that will appear below when this button is clicked.",Toast.LENGTH_LONG).show()
+            true
         }
 
         fontSelect.setOnClickListener(){v ->
@@ -264,9 +273,17 @@ class EditorActivity : AppCompatActivity() {
             }
 
         }
+        fontSelect.setOnLongClickListener(){v ->
+            Toast.makeText(this,"Select the font for your text.",Toast.LENGTH_LONG).show()
+            true
+        }
 
         save.setOnClickListener(){v ->
             saveImage()
+        }
+        save.setOnLongClickListener(){v ->
+            Toast.makeText(this,"Seriously? you need help for this? Anyways, it's the save button.",Toast.LENGTH_LONG).show()
+            true
         }
 
         signature.setOnClickListener(){v->
@@ -288,9 +305,16 @@ class EditorActivity : AppCompatActivity() {
             alertDialog.show()
 
         }
+        signature.setOnLongClickListener(){v ->
+            Toast.makeText(this,"Add your name as an author to credit your work",Toast.LENGTH_LONG).show()
+            true}
 
         textSize.setOnClickListener(){v->
             textSizeSeekBar.visibility=if (textSizeSeekBar.visibility==View.GONE) View.VISIBLE else View.GONE
+        }
+        textSize.setOnLongClickListener(){v ->
+            Toast.makeText(this,"Change the size of your text by adjusting the slider that will appear above when this button is clicked.",Toast.LENGTH_LONG).show()
+            true
         }
     }
 
