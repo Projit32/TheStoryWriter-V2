@@ -1,12 +1,17 @@
 package com.prolabs.thestorywriter
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.tomer.fadingtextview.FadingTextView
 import io.realm.Realm
 import java.util.concurrent.TimeUnit
@@ -37,6 +42,13 @@ class MainActivity : AppCompatActivity() {
 
         Realm.init(this)
 
+        //Request Permission
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED)
+        {
+            requestStoragePermission()
+        }
+
+
         val texts= arrayOf<String>(
                 "All you have to do is follow the damn thought.",
                 "There's a reason we call it the 'WordsPorn'.",
@@ -58,12 +70,42 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        requestPermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 2)
         history.setOnClickListener{v ->
             startActivity(Intent(this,PreviousActivity::class.java))
             finish()
         }
+    }
 
+    private fun requestStoragePermission(){
+        if(shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+        {
+            AlertDialog.Builder(this)
+                    .setTitle("Permission Needed")
+                    .setMessage("This permission is needed to save the stories that came from your heart into your phone.")
+                    .setPositiveButton("ok") { dialog, which ->
+                        requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 2)
+                    }
+                    .setNegativeButton("Cancel") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
+        }else{
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 2)
+        }
+    }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode==2)
+        {
+            if (grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(this,"Permission Granted",Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                Toast.makeText(this,"Permission Denied",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

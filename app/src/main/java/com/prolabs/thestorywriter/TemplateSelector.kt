@@ -94,7 +94,7 @@ class TemplateSelector : AppCompatActivity() {
 
     }
 
-    fun buttonFunctionsInit(){
+    private fun buttonFunctionsInit(){
         standardButton.setOnClickListener(){v->
             templateRecyclerView.adapter=standardAdapter
         }

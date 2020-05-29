@@ -1,7 +1,9 @@
 package com.prolabs.thestorywriter
 
+import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -112,7 +114,11 @@ class EditorActivity : AppCompatActivity() {
         fontRecyclerView.adapter=FontRecyclerAdapter(fonts,this)
         getImage()
 
-        requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+        //Request Permission
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED)
+        {
+            requestStoragePermission()
+        }
 
     }
 
@@ -469,6 +475,40 @@ class EditorActivity : AppCompatActivity() {
         tempModel.usedSize=this.usedSize
         tempModel.usedFont=this.usedFont
         realm.commitTransaction()
+    }
+
+
+    private fun requestStoragePermission(){
+        if(shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE))
+        {
+            AlertDialog.Builder(this)
+                    .setTitle("Permission Needed")
+                    .setMessage("This permission is needed to save the stories that came from your heart into your phone.")
+                    .setPositiveButton("ok") { dialog, which ->
+                        requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+                    }
+                    .setNegativeButton("Cancel") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
+        }else{
+            requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode==1)
+        {
+            if (grantResults.isNotEmpty() && grantResults[0]== PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(this,"Permission Granted",Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                Toast.makeText(this,"Permission Denied",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 }
