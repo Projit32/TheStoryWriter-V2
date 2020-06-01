@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         }
         history.setOnClickListener{v ->
             startActivity(Intent(this,PreviousActivity::class.java))
-            finish()
         }
     }
 

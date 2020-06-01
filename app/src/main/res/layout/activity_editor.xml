@@ -135,6 +135,7 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:backgroundTint="#ffffff"
             android:id="@+id/editContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,7 +143,10 @@
             android:layout_alignParentTop="true"
             android:layout_marginHorizontal="30dp"
             android:hint="Cook Your Story"
-            android:textColor="#ffffff"
+            android:shadowColor="#FBFBFB"
+            android:shadowRadius="15"
+            android:textColor="#C3268E"
+            android:textColorHighlight="#ffffff"
             android:maxHeight="300dp"
             android:textSize="18sp"
             android:textColorHint="#88ffffff"

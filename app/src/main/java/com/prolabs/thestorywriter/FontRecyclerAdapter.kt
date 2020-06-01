@@ -37,6 +37,7 @@ class FontRecyclerAdapter(var fontList:ArrayList<String>,var context:EditorActiv
             context.fontRecyclerView.visibility=View.GONE
             context.blurBackground.visibility=View.GONE
             context.draw()
+
         }
     }
 }
