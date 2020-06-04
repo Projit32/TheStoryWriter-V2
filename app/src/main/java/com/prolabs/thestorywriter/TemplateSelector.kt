@@ -4,6 +4,7 @@ import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,7 @@ class TemplateSelector : AppCompatActivity() {
     lateinit var realm: Realm
     lateinit var favoriteButton: ImageButton
     lateinit var deleteFavorite:ImageButton
+    lateinit var titleSelectTemplate:TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +50,7 @@ class TemplateSelector : AppCompatActivity() {
         festiveButton=findViewById(R.id.FestiveButton)
         favoriteButton=findViewById(R.id.getFavoriteButton)
         deleteFavorite=findViewById(R.id.deleteFavoriteButton)
+        titleSelectTemplate=findViewById(R.id.titleSelectTemplate)
 
         relativeLayout=findViewById(R.id.templatelayout)
         animation=relativeLayout.background as AnimationDrawable
@@ -105,21 +108,26 @@ class TemplateSelector : AppCompatActivity() {
         standardButton.setOnClickListener(){v->
             deleteFavorite.visibility=View.GONE
             templateRecyclerView.adapter=standardAdapter
+            changeTitle("Standard Templates")
         }
         seasonalButton.setOnClickListener(){v->
             deleteFavorite.visibility=View.GONE
             templateRecyclerView.adapter=seasonalAdapter
+            changeTitle("Seasonal Templates")
         }
         specialButton.setOnClickListener(){v->
             deleteFavorite.visibility=View.GONE
             templateRecyclerView.adapter=specialAdapter
+            changeTitle("Special Templates")
         }
         festiveButton.setOnClickListener(){v->
             deleteFavorite.visibility=View.GONE
             templateRecyclerView.adapter=festiveAdapter
+            changeTitle("Festive Templates")
         }
         favoriteButton.setOnClickListener(){v->
             getFavorites()
+            changeTitle("Your Favorites")
         }
         deleteFavorite.setOnClickListener(){v->
             waiting.visibility=View.VISIBLE
@@ -138,6 +146,12 @@ class TemplateSelector : AppCompatActivity() {
         var favorites=ArrayList(realm.where<FavoriteModel>().findAll())
         favoriteAdapter=FavoriteRecyclerAdapter(favorites,this)
         templateRecyclerView.adapter=favoriteAdapter
+    }
+
+    private fun changeTitle(title:String){
+        var animation= AnimationUtils.loadAnimation(this, R.anim.transition)
+        titleSelectTemplate.startAnimation(animation)
+        titleSelectTemplate.text = title
     }
 
 
