@@ -8,22 +8,43 @@
     tools:context=".TemplateSelector"
     android:id="@+id/templatelayout">
 
+    <LinearLayout
 
-    <TextView
-        android:id="@+id/SelectTemplateText"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:gravity="center"
-        android:layout_alignParentTop="true"
-        android:text="Select Any Template"
-        android:textAlignment="center"
-        android:background="#000000"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:textStyle="italic" />
+        android:layout_height="40dp"
+        android:id="@+id/templateActionbar">
+        <TextView
+            android:id="@+id/SelectTemplateText"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Select Any Template"
+            android:textAlignment="center"
+            android:background="#000000"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+        <ImageButton
+            android:layout_width="0dp"
+            android:background="#00ffffff"
+            android:src="@drawable/favorite"
+            android:id="@+id/getFavoriteButton"
+            android:layout_height="match_parent"
+            android:layout_weight="2"/>
+        <ImageButton
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:background="#00ffffff"
+            android:src="@drawable/delete"
+            android:id="@+id/deleteFavoriteButton"
+            android:layout_height="match_parent"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/folderOptionBar"
-        android:layout_below="@id/SelectTemplateText"
+        android:layout_below="@id/templateActionbar"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 

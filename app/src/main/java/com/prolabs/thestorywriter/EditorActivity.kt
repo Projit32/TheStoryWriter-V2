@@ -82,7 +82,7 @@ class EditorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editor)
         //Realm
-        realm= Realm.getDefaultInstance()
+        realm= RealmInit.getInstance()
         //IntentExtras
         url=intent.getStringExtra("url")!!
         isModel=intent.getBooleanExtra("Model",false)
@@ -401,6 +401,7 @@ class EditorActivity : AppCompatActivity() {
             saveToRealm()
             val intent:Intent= Intent(this,FinalActivity::class.java)
             intent.putExtra("image_name","$fileName.png")
+            intent.putExtra("url",this.url)
             startActivity(intent)
         }
         catch (e:Exception)

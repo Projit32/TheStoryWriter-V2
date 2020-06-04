@@ -7,9 +7,9 @@ import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.realm.Realm
+import io.realm.kotlin.where
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.Exception
 
 class TemplateSelector : AppCompatActivity() {
@@ -25,23 +25,29 @@ class TemplateSelector : AppCompatActivity() {
     lateinit var festiveAdapter: TemplateRecyclerAdapter
     @Volatile
     lateinit var specialAdapter: TemplateRecyclerAdapter
+    lateinit var favoriteAdapter:FavoriteRecyclerAdapter
     var client:RetrofitClient=RetrofitClient().build()
 
     lateinit var standardButton:Button
     lateinit var specialButton:Button
     lateinit var festiveButton: Button
     lateinit var seasonalButton: Button
+    lateinit var realm: Realm
+    lateinit var favoriteButton: ImageButton
+    lateinit var deleteFavorite:ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_template_selector)
         waiting=findViewById(R.id.waiting)
-
+        realm= RealmInit.getInstance()
         standardButton=findViewById(R.id.standardButton)
         specialButton=findViewById(R.id.specialButton)
         seasonalButton=findViewById(R.id.seasonalButton)
         festiveButton=findViewById(R.id.FestiveButton)
+        favoriteButton=findViewById(R.id.getFavoriteButton)
+        deleteFavorite=findViewById(R.id.deleteFavoriteButton)
 
         relativeLayout=findViewById(R.id.templatelayout)
         animation=relativeLayout.background as AnimationDrawable
@@ -63,6 +69,7 @@ class TemplateSelector : AppCompatActivity() {
             Toast.makeText(this,e.message,Toast.LENGTH_LONG).show()
         }
     }
+
 
     fun runThreads(){
         var standatdThread=Thread(){
@@ -96,17 +103,41 @@ class TemplateSelector : AppCompatActivity() {
 
     private fun buttonFunctionsInit(){
         standardButton.setOnClickListener(){v->
+            deleteFavorite.visibility=View.GONE
             templateRecyclerView.adapter=standardAdapter
         }
         seasonalButton.setOnClickListener(){v->
+            deleteFavorite.visibility=View.GONE
             templateRecyclerView.adapter=seasonalAdapter
         }
         specialButton.setOnClickListener(){v->
+            deleteFavorite.visibility=View.GONE
             templateRecyclerView.adapter=specialAdapter
         }
         festiveButton.setOnClickListener(){v->
+            deleteFavorite.visibility=View.GONE
             templateRecyclerView.adapter=festiveAdapter
         }
+        favoriteButton.setOnClickListener(){v->
+            getFavorites()
+        }
+        deleteFavorite.setOnClickListener(){v->
+            waiting.visibility=View.VISIBLE
+            realm.beginTransaction()
+            val realmResult=realm.where<FavoriteModel>().findAll()
+            realmResult.deleteAllFromRealm()
+            realm.commitTransaction()
+            Toast.makeText(this,"History Cleared",Toast.LENGTH_SHORT).show()
+            getFavorites()
+        }
+    }
+
+    private fun getFavorites(){
+        deleteFavorite.visibility=View.VISIBLE
+        waiting.visibility=View.GONE
+        var favorites=ArrayList(realm.where<FavoriteModel>().findAll())
+        favoriteAdapter=FavoriteRecyclerAdapter(favorites,this)
+        templateRecyclerView.adapter=favoriteAdapter
     }
 
 

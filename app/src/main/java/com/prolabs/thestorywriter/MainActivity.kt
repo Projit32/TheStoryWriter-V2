@@ -68,7 +68,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,"Loading Templates, Please Wait...",Toast.LENGTH_SHORT).show()
             val intent=Intent(this,TemplateSelector::class.java)
             startActivity(intent)
-            finish()
         }
         history.setOnClickListener{v ->
             startActivity(Intent(this,PreviousActivity::class.java))

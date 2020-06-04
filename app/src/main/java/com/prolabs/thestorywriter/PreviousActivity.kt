@@ -31,11 +31,15 @@ class PreviousActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_previous)
         clearHistory=findViewById(R.id.clearHistory)
-        realm= Realm.getDefaultInstance()
+        realm= RealmInit.getInstance()
         historyRecyclerView=findViewById(R.id.historyRecyclerView)
         blurBackground=findViewById(R.id.prevBlur)
         historyRecyclerView.layoutManager=LinearLayoutManager(this)
 
+        showHistory()
+    }
+
+    fun showHistory(){
         try {
 
             val results = realm.where<StoryModel>().findAll()
@@ -49,10 +53,13 @@ class PreviousActivity : AppCompatActivity() {
 
         clearHistory.setOnClickListener(){v ->
             realm.beginTransaction()
-            realm.deleteAll()
+            val realmResult=realm.where<StoryModel>().findAll()
+            realmResult.deleteAllFromRealm()
             realm.commitTransaction()
             Toast.makeText(this,"History Cleared",Toast.LENGTH_SHORT).show()
             startActivity(Intent(this,TemplateSelector::class.java))
+            finish()
         }
     }
 }
+

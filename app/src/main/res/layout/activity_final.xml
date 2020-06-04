@@ -39,6 +39,14 @@
             android:src="@drawable/previous" />
 
         <ImageButton
+            android:id="@+id/favoriteButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:src="@drawable/favorite" />
+
+        <ImageButton
             android:id="@+id/selectTemplateButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"

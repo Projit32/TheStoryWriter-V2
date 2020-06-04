@@ -3,24 +3,23 @@ package com.prolabs.thestorywriter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.database.Cursor
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.squareup.picasso.Picasso
-import java.io.BufferedInputStream
+import io.realm.Realm
+import io.realm.kotlin.createObject
+import io.realm.kotlin.where
 import java.io.File
-import java.io.InputStream
-import java.net.URL
-import java.net.URLConnection
 
 
 class FinalActivity : AppCompatActivity() {
@@ -29,8 +28,11 @@ class FinalActivity : AppCompatActivity() {
     lateinit var shareButton:ImageButton
     lateinit var historyButton:ImageButton
     lateinit var editButton:ImageButton
+    lateinit var favoriteButton:ImageButton
     lateinit var selectTemplateButton:ImageButton
     lateinit var imageUri:Uri
+    lateinit var realm:Realm
+    lateinit var url:String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +45,15 @@ class FinalActivity : AppCompatActivity() {
         historyButton=findViewById(R.id.historyButton)
         selectTemplateButton=findViewById(R.id.selectTemplateButton)
         shareButton=findViewById(R.id.shareButton)
+        favoriteButton=findViewById(R.id.favoriteButton)
+
+        realm= RealmInit.getInstance()
 
         imageName=intent.getStringExtra("image_name")!!
+        url=intent.getStringExtra("url")!!
+
+        favoriteButton.visibility=if (checkTemplateExistsInRealm()) View.GONE else View.VISIBLE
+
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 imageUri=getImage()
@@ -75,7 +84,7 @@ class FinalActivity : AppCompatActivity() {
 
     }
 
-    fun initButtonFunctions(){
+    private fun initButtonFunctions(){
         shareButton.setOnClickListener(){v->
             share(imageUri)
         }
@@ -104,10 +113,32 @@ class FinalActivity : AppCompatActivity() {
             finish()
         }
         selectTemplateButton.setOnLongClickListener(){v ->
-            Toast.makeText(this,"Select template",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Select Template",Toast.LENGTH_SHORT).show()
             true
         }
+        favoriteButton.setOnClickListener(){v->
+            try{
+                saveTemplateToFavorites(this.url)
+            }
+            catch (e:Exception)
+            {
+                Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
+            }
 
+        }
+        favoriteButton.setOnLongClickListener(){v->
+            Toast.makeText(this,"Save Template to Favorites",Toast.LENGTH_SHORT).show()
+            return@setOnLongClickListener true
+        }
+
+    }
+
+    private fun saveTemplateToFavorites(imageUrl:String){
+        realm.beginTransaction()
+        var favorite=realm.createObject<FavoriteModel>()
+        favorite.url=imageUrl
+        realm.commitTransaction()
+        Toast.makeText(this,"Template Added to Favorites",Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("Recycle")
@@ -132,7 +163,12 @@ class FinalActivity : AppCompatActivity() {
         return listOfImages[0]
     }
 
-    fun share(imageURI:Uri)
+    private fun checkTemplateExistsInRealm():Boolean{
+        var result=realm.where<FavoriteModel>().equalTo("url",url).findAll()
+        return result.size>0
+    }
+
+    private fun share(imageURI:Uri)
     {
         val share = Intent(Intent.ACTION_SEND)
         share.type = "image/png"
