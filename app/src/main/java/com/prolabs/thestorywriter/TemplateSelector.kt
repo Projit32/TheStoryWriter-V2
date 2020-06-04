@@ -3,6 +3,7 @@ package com.prolabs.thestorywriter
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -59,13 +60,9 @@ class TemplateSelector : AppCompatActivity() {
         animation.start()
 
         try {
-            runThreads()
-            waiting.visibility= View.GONE
             templateRecyclerView = findViewById(R.id.TemplateRecyclerView)
             templateRecyclerView.layoutManager = LinearLayoutManager(this)
-            templateRecyclerView.adapter = standardAdapter
-
-            buttonFunctionsInit()
+            Handler().postDelayed({runThreads()},500)
         }
         catch (e:Exception)
         {
@@ -102,6 +99,9 @@ class TemplateSelector : AppCompatActivity() {
         seasonalThread.join()
         festiveThread.join()
 
+        waiting.visibility=View.GONE
+        templateRecyclerView.adapter = standardAdapter
+        buttonFunctionsInit()
     }
 
     private fun buttonFunctionsInit(){
