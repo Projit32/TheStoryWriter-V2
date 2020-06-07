@@ -144,13 +144,13 @@
             android:layout_marginHorizontal="30dp"
             android:hint="Cook Your Story"
             android:shadowColor="#FBFBFB"
-            android:shadowRadius="15"
+            android:shadowRadius="20"
             android:textColor="#C3268E"
             android:textColorHighlight="#ffffff"
-            android:maxHeight="300dp"
+            android:maxHeight="200dp"
             android:textSize="18sp"
             android:textColorHint="#88ffffff"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="100pt"
             android:singleLine="false"
             android:inputType="textCapSentences|textMultiLine"
             android:textStyle="italic">
@@ -158,17 +158,17 @@
         </EditText>
 
         <Button
-            android:layout_centerHorizontal="true"
             android:id="@+id/contentSubmit"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editContent"
-            android:textStyle="italic"
-            android:textColor="#000000"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="100pt"
             android:background="@drawable/button_background"
-            android:layout_marginTop="150dp"
             android:text="Use This Text"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textStyle="italic" />
 
     </RelativeLayout>
 

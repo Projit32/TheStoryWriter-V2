@@ -331,7 +331,7 @@ class EditorActivity : AppCompatActivity() {
             var canvas: Canvas = Canvas(finalImage)
             val paint = Paint()
             paint.setColor(Color.WHITE)
-            paint.textSize = 30f
+            paint.textSize = 35f
             val bounds: Rect = Rect()
             val local_y = finalImage.height*0.98f
             val local_x = finalImage.width*0.65f

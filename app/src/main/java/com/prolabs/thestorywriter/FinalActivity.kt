@@ -31,8 +31,9 @@ class FinalActivity : AppCompatActivity() {
     lateinit var favoriteButton:ImageButton
     lateinit var selectTemplateButton:ImageButton
     lateinit var imageUri:Uri
-    lateinit var realm:Realm
     lateinit var url:String
+    var realm= RealmInit.getInstance()
+    private var checkFavoriteVisibility= {favoriteButton.visibility=if (checkTemplateExistsInRealm())  View.GONE else  View.VISIBLE}
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,12 +48,10 @@ class FinalActivity : AppCompatActivity() {
         shareButton=findViewById(R.id.shareButton)
         favoriteButton=findViewById(R.id.favoriteButton)
 
-        realm= RealmInit.getInstance()
-
         imageName=intent.getStringExtra("image_name")!!
         url=intent.getStringExtra("url")!!
 
-        favoriteButton.visibility=if (checkTemplateExistsInRealm()) View.GONE else View.VISIBLE
+        checkFavoriteVisibility()
 
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -138,7 +137,9 @@ class FinalActivity : AppCompatActivity() {
         var favorite=realm.createObject<FavoriteModel>()
         favorite.url=imageUrl
         realm.commitTransaction()
+        checkFavoriteVisibility()
         Toast.makeText(this,"Template Added to Favorites",Toast.LENGTH_SHORT).show()
+
     }
 
     @SuppressLint("Recycle")
