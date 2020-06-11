@@ -1,5 +1,6 @@
 package com.prolabs.thestorywriter
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Handler
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.RealmResults
+import io.realm.kotlin.where
 
 class PreviousRecyclerAdapter(var models:RealmResults<StoryModel>,var context:PreviousActivity):RecyclerView.Adapter<PreviousRecyclerAdapter.PreviousViewHolder>() {
 
@@ -49,5 +51,27 @@ class PreviousRecyclerAdapter(var models:RealmResults<StoryModel>,var context:Pr
 
         }
 
+        holder.modelLayout.setOnLongClickListener(){v->
+            AlertDialog.Builder(context)
+                .setTitle("Delete Confirmation")
+                .setMessage("Are you sure that you want to delete this?")
+                .setPositiveButton("Yep!"){dialog, which ->
+                    deleteFunction(position)
+                }
+                .setNegativeButton("Oh hell no!"){dialog, which ->
+                    dialog.dismiss()
+                }
+                .show()
+
+            return@setOnLongClickListener true
+        }
+
+    }
+    var realm=RealmInit.getInstance()
+    var deleteFunction={pos:Int->
+      realm.executeTransaction{r->
+          models.deleteFromRealm(pos)
+      }
+        notifyItemRemoved(pos)
     }
 }

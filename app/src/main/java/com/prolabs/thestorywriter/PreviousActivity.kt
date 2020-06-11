@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.alterac.blurkit.BlurLayout
 import io.realm.Realm
+import io.realm.Sort
 import io.realm.kotlin.where
 
 class PreviousActivity : AppCompatActivity() {
@@ -42,8 +43,7 @@ class PreviousActivity : AppCompatActivity() {
     fun showHistory(){
         try {
 
-            val results = realm.where<StoryModel>().findAll()
-
+            val results = realm.where<StoryModel>().sort("date", Sort.DESCENDING).findAll()
             historyRecyclerView.adapter = PreviousRecyclerAdapter(results, this)
         }
         catch (e:Exception)
@@ -52,10 +52,9 @@ class PreviousActivity : AppCompatActivity() {
         }
 
         clearHistory.setOnClickListener(){v ->
-            realm.beginTransaction()
-            val realmResult=realm.where<StoryModel>().findAll()
-            realmResult.deleteAllFromRealm()
-            realm.commitTransaction()
+            realm.executeTransaction(){r->
+                realm.where<StoryModel>().findAll().deleteAllFromRealm()
+            }
             Toast.makeText(this,"History Cleared",Toast.LENGTH_SHORT).show()
             startActivity(Intent(this,TemplateSelector::class.java))
             finish()

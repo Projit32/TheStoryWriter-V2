@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.Realm
+import io.realm.Sort
 import io.realm.kotlin.where
 import retrofit2.Call
 import java.lang.Exception
@@ -143,7 +144,7 @@ class TemplateSelector : AppCompatActivity() {
     private fun getFavorites(){
         deleteFavorite.visibility=View.VISIBLE
         waiting.visibility=View.GONE
-        var favorites=ArrayList(realm.where<FavoriteModel>().findAll())
+        var favorites=realm.where<FavoriteModel>().sort("url").findAll()
         favoriteAdapter=FavoriteRecyclerAdapter(favorites,this)
         templateRecyclerView.adapter=favoriteAdapter
     }
