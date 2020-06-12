@@ -28,7 +28,7 @@
             android:textStyle="bold|italic" />
         <ImageButton
             android:layout_width="0dp"
-            android:background="#00ffffff"
+            android:background="#000000"
             android:src="@drawable/favorite"
             android:id="@+id/getFavoriteButton"
             android:layout_height="match_parent"
@@ -36,7 +36,7 @@
         <ImageButton
             android:visibility="gone"
             android:layout_width="0dp"
-            android:background="#00ffffff"
+            android:background="#000000"
             android:src="@drawable/delete"
             android:id="@+id/deleteFavoriteButton"
             android:layout_height="match_parent"
