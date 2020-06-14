@@ -218,6 +218,7 @@ class EditorActivity : AppCompatActivity() {
         editedImage.setOnClickListener(){v ->
             blurBackground.visibility=View.VISIBLE
             contentLayout.visibility=View.VISIBLE
+            editContent.requestFocus()
         }
         contentSubmit.setOnClickListener(){v ->
             try {

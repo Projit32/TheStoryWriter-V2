@@ -44,7 +44,7 @@ class FavoriteRecyclerAdapter(var favoriteModels: RealmResults<FavoriteModel>, v
         holder.templateImageView.setOnLongClickListener(){v->
             AlertDialog.Builder(context)
                 .setTitle("Delete Confirmation")
-                .setMessage("Are you sure that you want to delete this?")
+                .setMessage("Are you sure that you want to delete this? pos: $position")
                 .setPositiveButton("Yep!"){dialog, which ->
                     deleteFunction(position)
                 }
@@ -59,7 +59,9 @@ class FavoriteRecyclerAdapter(var favoriteModels: RealmResults<FavoriteModel>, v
     fun deleteFunction(pos:Int){
         realm.executeTransaction{r->
             favoriteModels.deleteFromRealm(pos)
+            notifyItemRemoved(pos)
+            notifyItemRangeChanged(pos,favoriteModels.size)
         }
-        notifyItemRemoved(pos)
+
     }
 }

@@ -40,8 +40,6 @@ class MainActivity : AppCompatActivity() {
         animation.setExitFadeDuration(2000)
         animation.start()
 
-        Realm.init(this)
-
         //Request Permission
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED)
         {
