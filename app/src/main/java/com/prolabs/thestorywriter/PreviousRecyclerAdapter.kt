@@ -54,7 +54,7 @@ class PreviousRecyclerAdapter(var models:RealmResults<StoryModel>,var context:Pr
         holder.modelLayout.setOnLongClickListener(){v->
             AlertDialog.Builder(context)
                 .setTitle("Delete Confirmation")
-                .setMessage("Are you sure that you want to delete this? pos: $position")
+                .setMessage("Are you sure that you want to delete this?")
                 .setPositiveButton("Yep!"){dialog, which ->
                     deleteFunction(position)
                 }
