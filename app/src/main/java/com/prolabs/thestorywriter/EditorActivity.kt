@@ -204,6 +204,8 @@ class EditorActivity : AppCompatActivity() {
             this.usedFont=model.usedFont
             this.userSignature=model.userSignature
             editContent.setText(model.content)
+            verticalSeekBar.progress=this.global_y.toInt()
+            horizontalSeekBar.progress=this.global_x.toInt()
             draw()
         }
         catch (e:Exception)
