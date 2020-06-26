@@ -2,7 +2,9 @@
 Version 2 of the OG [The Story Writer](https://github.com/Projit32/TheStoryWriter) app but revamped!
 
 `Code : 100% Kotlin` <img src=images/kt.png height = 13/> 
-Try out the app from [Play Store](https://play.google.com/store/apps/details?id=com.prolabs.thestorywriter)
+
+## Try out the app from
+[<img  src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height=70>](https://play.google.com/store/apps/details?id=com.prolabs.thestorywriter)
 
 <img src=images/logo_square.png/>
 
